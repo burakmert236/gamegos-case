@@ -8,6 +8,10 @@ Application also uses redis-server. You need to install redis CLI and run locall
 EVENT API
 --------
 
+### ERD for Non-SQL Database Structure
+
+<img width="683" alt="Ekran Resmi 2023-03-12 20 46 02" src="https://user-images.githubusercontent.com/73586955/224562690-409768e4-4ce6-4526-9ea9-df9d27821da6.png">
+
 ### Pseudocode for whole logic with comments
 
 ```
