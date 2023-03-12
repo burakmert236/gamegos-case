@@ -5,7 +5,7 @@ const cors = require('cors');
 const config = require('./config');
 const loader = require('./loaders');
 
-const { GroupRoutes } = require('./routes');
+const { EventRoutes } = require('./routes');
 
 config();
 loader();
@@ -22,5 +22,5 @@ const port = 8080;
 
 app.listen(port, () => {
   console.log(`Server is running on port ${8080}`);
-  app.use('/group', GroupRoutes);
+  app.use('/event', EventRoutes);
 })

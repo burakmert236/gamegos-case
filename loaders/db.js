@@ -11,6 +11,7 @@ db.once("open", () => {
 
 // connect to local MongoDB database
 const connectDB = async () => {
+  Mongoose.set('strictQuery', false);
   await Mongoose.connect(db_connection_string, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
