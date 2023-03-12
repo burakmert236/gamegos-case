@@ -1,0 +1,109 @@
+openapi: 3.0.3
+info:
+  title: Gamegos Case Study
+  description: |-
+    Application uses a local MongoDB database. Connection string I used is: mongodb://localhost:27017/gamegos.
+    Application also uses redis-server. You need to install redis CLI and run locally. It should run on default port which is 6379.
+  contact:
+    email: burak.mert@boun.edu.tr
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /event/join:
+    post:
+      tags:
+        - Event
+      summary: Join an event 
+      description: Take playerId and eventId, puts given player to a suitable group inside the event.
+      operationId: joinEvent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+        '400':
+          description: Invalid IDs are supplied
+        '404':
+          description: User or event not found
+        '500':
+          description: Locking error
+
+            
+components:
+  schemas:
+    Player:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 640debbe04924acd25ed519c
+        username:
+          type: string
+          example: burak
+        level:
+          type: integer
+          format: int32
+          example: 7
+        event:
+          $ref: '#/components/schemas/Event'
+        group:
+          $ref: '#/components/schemas/Group'
+      
+    Event:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 640dec1304924acd25ed519e
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/Group'
+        
+    Group:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 640dfe1c8ccbd8018f0833df
+        category:
+          type: string
+          enum: ["Bronze", "Silver", "Gold"]
+        capacity:
+          type: integer
+          format: int32
+          example: 20
+        
+    Request:
+      type: object
+      properties:
+        playerId:
+          type: string
+          example: 640debbe04924acd25ed519c
+          
+        eventId:
+          type: string
+          example: 640dec1304924acd25ed519e
+
+
+    Response:
+      type: object
+      properties:
+        groupId:
+          type: string
+          example: 640dfe1c8ccbd8018f0833df
+        members: 
+          type: array
+          items:
+            type: string 
+            example: 640debbe04924acd25ed519c
