@@ -65,6 +65,7 @@ const join = async (req, res) => {
         })
 
     } catch(err) {
+        if(doneLock) await doneLock();
         return res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ message: err.message })
     }
 };
